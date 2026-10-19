@@ -166,7 +166,7 @@ function payload(){
 async function submit(tries=0){
   if(S.sent||S.lyric===null)return;
   try{
-    const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(payload())});
+    const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},referrer:location.origin+location.pathname,referrerPolicy:"unsafe-url",body:JSON.stringify(payload())});
     const j=await r.json().catch(()=>({}));
     if(r.ok&&String(j.success)!=="false"){S.sent=true;save();document.body.dataset.sent="1";return}
     throw new Error(j.message||r.status);
